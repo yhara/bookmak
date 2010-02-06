@@ -1,5 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
+  map.root :controller => "top"
+  map.home 'home', :controller => "home"
+
+  map.connect 'summon', :controller => 'summon', :action => 'index'
+
   map.resources :users
+  map.resources :bookmarklets
 
   map.signin  '/signin',  :controller => 'sessions', :action => 'new'
   map.signout '/signout', :controller => 'sessions', :action => 'destroy'

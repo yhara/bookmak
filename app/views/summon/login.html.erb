@@ -1,0 +1,17 @@
+<div style="color:white;">
+  <div>Bookmak</div>
+  <div style="margin-left:2em;">
+    <% form_tag session_path do -%>
+    <p><label for="login">Login</label> <%= text_field_tag "login" %></p>
+
+    <p><label for="password">Password</label> <%= password_field_tag "password" %>
+       <label for="remember_me">Remember me:</label> <%= check_box_tag "remember_me" %></p>
+
+    <p id="message" style="color:red"></p>
+
+    <p><%= button_to_function 'Log in', "Route477.Bookmak.login();" %></p>
+    <% end -%>
+
+  </div>
+  <div><%=link_to_function "(close)", "Route477.Bookmak.windiv.hide();"%></div>
+</div>

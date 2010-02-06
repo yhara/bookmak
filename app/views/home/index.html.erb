@@ -1,0 +1,27 @@
+<h2>Your Bookmarklets</h2>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Javascript</th>
+  </tr>
+
+<% for bookmarklet in @bookmarklets %>
+  <tr>
+    <td><%= link_to bookmarklet.title, bookmarklet_path(bookmarklet) %></td>
+    <td><%=h truncate(bookmarklet.javascript) %></td>
+    <td><%= link_to 'Edit', edit_bookmarklet_path(bookmarklet) %></td>
+    <td><%= link_to 'Remove', :controller => 'bookmarklets', :action => 'remove', :id => bookmarklet %></td>
+  </tr>
+<% end %>
+</table>
+
+<br/>
+
+<%=link_to 'add new bookmarklet', :controller => 'bookmarklets'%>
+
+<h2>To use these bookmarklets...</h2>
+add this link to your toolbar:
+<blockquote>
+<a href="<%=@master_bookmarklet%>">Bookmarklets</a>
+</blockquote>

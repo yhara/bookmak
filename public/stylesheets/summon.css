@@ -1,0 +1,9 @@
+body{
+  background-color: black;
+  filter: alpha(opacity=75);
+  -moz-opacity: 0.75;
+  opacity: 0.75;
+}
+a{
+  color: white;
+}

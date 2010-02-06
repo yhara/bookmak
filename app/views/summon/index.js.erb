@@ -1,0 +1,70 @@
+// Route477.$ : placeholder for jQuery's `$'
+var Route477 = window.Route477 || {};
+
+alert(1);
+
+(function(){ //local namespace
+  // load library and execute proc after loading
+  var require = function(src, check, proc){
+    var script = document.createElement('script')
+    script.src = src;
+    document.body.appendChild(script);
+
+    var checker = new Function("return !!(" + check + ")");
+
+    if(checker()) proc();
+    else          setTimeout(function(){ checker() ? proc() : setTimeout(arguments.callee, 10) }, 10);
+  }
+
+  // main
+  
+  
+  var jquery_url = '<%= url_for(:controller => "javascript", :action => "jquery.js", :only_path => false) %>';
+  require(jquery_url, 'window.com_route477_bookmarklets', function(){
+    // cache jQuery object; user may click bookmarklet twice
+    if(window.jQuery){
+      Route477.$ = jQuery.noConflict(true); //extreme mode: don't override both $ and jQuery
+    }
+
+    // create (or get, if exists) window div
+    var windiv = Route477.bookmakWindiv;
+    if(!windiv){
+      windiv = document.createElement("div");
+      windiv.id = "route477-bookmak";
+      document.body.appendChild(windiv);
+      windiv = Route477.bookmakWindiv = Route477.$(windiv);
+    }
+
+    // set window position
+    windiv.css("position", "fixed");
+    windiv.css("left", "30%");
+    windiv.css("width", "40%");
+    windiv.css("top", 0)
+    windiv.css("z-index", 100);
+
+    // set window design
+    windiv.css("background", "black");
+    windiv.css("filter", "alpha(opacity=75)");
+    windiv.css("-moz-opacity", 0.75);
+    windiv.css("opacity", 0.75);
+
+    // show window and spinner.gif
+    // thanks to http://loadinfo.net/
+    
+    var spinner_gif = '<%= url_for(:controller => "images", :action => "spinner.gif", :only_path => false) %>';
+    windiv.html("<div style='text-align:center'><img src='"+spinner_gif+"'></div>");
+    windiv.show();
+
+    // inject html 
+    var summon_list = '<%= url_for(:controller => "summon", :action => "list", :only_path => false) %>';
+    Route477.$.ajax({
+       url: summon_list
+      ,dataType: "jsonp"
+      ,success: function(data){
+        windiv.html( data.toString() );
+      }
+    });
+  });
+})();
+
+// vim:set ft=javascript:

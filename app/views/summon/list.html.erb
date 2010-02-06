@@ -1,0 +1,12 @@
+<!-- DO NOT use singlequotes in this html -->
+<ul style="text-align: left;">
+<% for bookmarklet in @bookmarklets %>
+  <li>
+    <a style="color:white;" href="<%=to_embed(bookmarklet.javascript)%>">
+      <%=h bookmarklet.title %>
+    </a>
+  </li>
+<% end %>
+  <li></li>
+  <li><%=link_to_function "(close)", "Route477.BookmakWindiv.hide();"%></li>
+</ul>

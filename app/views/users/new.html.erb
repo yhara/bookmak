@@ -1,25 +1,11 @@
-<h1>Sign up</h1>
-
 <% form_for(@user) do |f| %>
   <%= f.error_messages %>
-
-  <table>
-    <tr>
-      <th> <%= f.label :name %></th>
-      <td><%= f.text_field :name %></td>
-    </tr>
-    <tr>
-      <th> <%= f.label :display_name %></th>
-      <td><%= f.text_field :display_name %></td>
-    </tr>
-    <tr>
-      <th>OpenID URL</th>
-      <td><%=h session[:identity_url] %></td>
-    </tr>
-  </table>
   <p>
-    <%= f.submit 'Create' %>
+    Nice to meet you!<br>
+    your identity url is: <%=h session[:identity_url] %>
   </p>
+  <label for="name">Login Name:</label>
+  <%= f.text_field :name %>
+  <%= f.submit 'Sign up', :disable_with => 'Signing up...' %>
 <% end %>
 
-<%= link_to 'Back', users_path %>

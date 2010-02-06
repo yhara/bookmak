@@ -1,0 +1,25 @@
+<h1>Listing bookmarklets</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Javascript</th>
+  </tr>
+
+<% for bookmarklet in @bookmarklets %>
+  <tr>
+    <td><%=h bookmarklet.title %></td>
+    <td><%=h truncate(bookmarklet.javascript) %></td>
+    <td><%= link_to 'Show', bookmarklet %></td>
+    <td><%= link_to 'Edit', edit_bookmarklet_path(bookmarklet) %></td>
+    <td><%= link_to 'Destroy', bookmarklet, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% if logged_in? and not @user_bookmarkltes.include?(bookmarklet) %>
+    <td><%= link_to 'Import', :action => 'import', :id => bookmarklet %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New bookmarklet', new_bookmarklet_path %>

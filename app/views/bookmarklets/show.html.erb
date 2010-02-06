@@ -1,0 +1,17 @@
+<p>
+  <b>Title:</b>
+  <%=h @bookmarklet.title %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%=link_to @bookmarklet.author.name, user_path(@bookmarklet.author) %>
+</p>
+
+<p>
+  <b>Javascript:</b>
+  <pre><%=h @bookmarklet.javascript %></pre>
+</p>
+
+
+<%= link_to 'Edit', edit_bookmarklet_path(@bookmarklet) %> 

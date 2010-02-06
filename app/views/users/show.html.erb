@@ -1,0 +1,20 @@
+<h1><%=h @user.name %>'s bookmarklets</h1>
+
+<table>
+  <tr>
+    <th>Title (Author)</th>
+  </tr>
+
+<% for bookmarklet in @bookmarklets %>
+  <tr>
+    <td>
+      <%= link_to bookmarklet.title, bookmarklet %>
+      (<%= link_to bookmarklet.author.name, user_path(bookmarklet.author) %>
+      <% if bookmarklet.author == @user %>
+      's
+      <% end %>
+      )
+    </td>
+  </tr>
+<% end %>
+</table>

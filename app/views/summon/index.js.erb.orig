@@ -1,0 +1,97 @@
+// Route477.$ : placeholder for jQuery's `$'
+var Route477 = window.Route477 || {};
+Route477.Bookmak = Route477.Bookmak || {};
+
+Route477.Bookmak.login = function() {
+  var windiv = Route477.Bookmak.windiv;
+
+  var user = windiv.find("input[type=text]").val();
+  var pass = windiv.find("input[type=password]").val() 
+  var rem  = windiv.find("input[type=checkbox]").attr("checked"); 
+
+  Route477.$.ajax({
+    ,url: "<%= url_for :controller => 'sessions', :action => 'create_from_summon', :only_path => false%>"
+    ,data: { login: user, password: pass, remember_me: rem }
+    ,dataType: "jsonp"
+    ,success: function(succeeded){
+      if(succeeded){
+        Route477.Bookmak.updateList();
+      }
+      else{
+        Route477.Bookmak.windiv.find("#message").html("login failed");
+      }
+    }
+  });
+};
+
+Route477.Bookmak.updateList = function() {
+  Route477.$.ajax({
+    url: "<%= url_for :action => 'list', :only_path => false%>"
+    ,dataType: "jsonp"
+    ,success: function(data){
+      Route477.Bookmak.windiv.html( data.toString() );
+    }
+  });
+};
+
+//local namespace
+(function(){ 
+  // load library and execute proc after loading
+  var require = function(src, check, proc){
+    var script = document.createElement('script')
+    script.src = src;
+    document.body.appendChild(script);
+
+    var checker = new Function("return !!(" + check + ")");
+
+    if(checker()) proc();
+    else          setTimeout(function(){ checker() ? proc() : setTimeout(arguments.callee, 10) }, 10);
+  }
+
+  // main
+  <% jquery_url = url_for :only_path => false, 
+                          :controller => "javascripts", 
+                          :action => "jquery-1.2.3.js" %>
+  <% my_jquery_key = 'window.com_route477_bookmarklets' %>
+  require('<%= jquery_url %>', '<%= my_jquery_key %>', function(){
+    // cache jQuery object; user may click bookmarklet twice
+    if(window.jQuery){
+      Route477.$ = jQuery.noConflict(true); //extreme mode: don't override both $ and jQuery
+    }
+
+    // create (or get, if exists) window div
+    var windiv = Route477.Bookmak.windiv;
+    if(!windiv){
+      windiv = document.createElement("div");
+      windiv.id = "route477-bookmak";
+      document.body.appendChild(windiv);
+      windiv = Route477.Bookmak.windiv = Route477.$(windiv);
+    }
+
+    // set window position
+    windiv.css("position", "fixed");
+    windiv.css("left", "30%");
+    windiv.css("width", "40%");
+    windiv.css("top", 0)
+    windiv.css("z-index", 100);
+
+    // set window design
+    windiv.css("background", "black");
+    windiv.css("filter", "alpha(opacity=75)");
+    windiv.css("-moz-opacity", 0.75);
+    windiv.css("opacity", 0.75);
+
+    // show window and spinner.gif
+    // thanks to http://loadinfo.net/
+    <% spinner_url = url_for :only_path => false, 
+                             :controller => "images", 
+                             :action => "spinner.gif" %>
+    windiv.html("<div style='text-align:center'><img src='<%= spinner_url %>'></div>");
+    windiv.show();
+
+    // inject html 
+    Route477.Bookmak.updateList();
+  });
+})();
+
+// vim:set ft=javascript:

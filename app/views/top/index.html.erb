@@ -1,0 +1,26 @@
+<h1> Bookmarklets </h1>
+
+<% if logged_in? %>
+  hello, <%=link_to current_user.name, home_path %>
+<% else %>
+  please <%=link_to "login", login_path %>
+<% end %>
+
+<h2>Recent Bookmarklets</h2>
+
+<table>
+  <tr>
+    <th>Title (Author)</th>
+    <th>Javascript</th>
+  </tr>
+
+<% for bookmarklet in @bookmarklets %>
+  <tr>
+    <td>
+      <%= link_to bookmarklet.title, bookmarklet %>
+      (<%= link_to bookmarklet.author.name, user_path(bookmarklet.author) %>)
+    </td>
+    <td><%=h truncate(bookmarklet.javascript, 80) %></td>
+  </tr>
+<% end %>
+</table>

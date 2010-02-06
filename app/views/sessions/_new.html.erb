@@ -1,0 +1,9 @@
+<% form_tag(session_path) do %>
+  <p>
+    <%=h flash[:error] %>
+  </p>
+  <label for="openid_url">OpenID URL:</label>
+  <%= text_field_tag "openid_url", params[:openid_url] %>
+
+  <%= submit_tag 'Sign in', :disable_with => "Signing in..." %>
+<% end %>

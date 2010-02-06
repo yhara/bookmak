@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  layout "default"
   include Repim::Signup
 
   def index
@@ -12,6 +13,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @bookmarklets = @user.bookmarklets
 
     respond_to do |format|
       format.html
