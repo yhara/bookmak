@@ -2,7 +2,7 @@
 <ul style="text-align: left;">
 <% for bookmarklet in @bookmarklets %>
   <li>
-    <a style="color:white;" href="<%=to_embed(bookmarklet.javascript)%>">
+    <a style="color:white;" href="<%=h bookmarklet.javascript%>">
       <%=h bookmarklet.title %>
     </a>
   </li>
