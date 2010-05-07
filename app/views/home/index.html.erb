@@ -21,7 +21,12 @@
 <%=link_to 'add new bookmarklet', :controller => 'bookmarklets'%>
 
 <h2>To use these bookmarklets...</h2>
-add this link to your toolbar:
+PC: add this link to your toolbar:
 <blockquote>
 <a href="<%=@master_bookmarklet%>">Bookmarklets</a>
+</blockquote>
+
+iPhone: add this link to your bookmark, and remove 'http://x.xx' on the beginning.
+<blockquote>
+<a href="http://x.xx/<%=@master_bookmarklet%>">Bookmarklets</a>
 </blockquote>
