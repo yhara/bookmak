@@ -3,7 +3,14 @@
     <%=h flash[:error] %>
   </p>
   <label for="openid_url">OpenID URL:</label>
-  <%= text_field_tag "openid_url", params[:openid_url] %>
+  <%= text_field_tag "openid_url", params[:openid_url], :size => 50 %><br>
+  or Hatena ID: <input type='text' onchange='from_hatena(this.value);'>
 
   <%= submit_tag 'Sign in', :disable_with => "Signing in..." %>
 <% end %>
+
+<script>
+  function from_hatena(str){
+    $("#openid_url").val("http://www.hatena.ne.jp/"+str+"/");
+  }
+</script>
